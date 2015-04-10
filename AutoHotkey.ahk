@@ -30,6 +30,11 @@ return
 ; It explains how to perform common automation tasks such as sending
 ; keystrokes and mouse clicks.  It also explains more about hotkeys.
 
+; # : WinKey
+; ! : Alt
+; ^ : Control
+; + : Shift
+
 #i::
 Run "C:\Program Files (x86)\Internet Explorer\iexplore.exe"
 return
@@ -39,14 +44,17 @@ Run calc
 return
 
 #p::
-Run %A_Desktop%\putty.exe
-sleep 250
-sleep 10
-Send !t
-sleep 10
-Send !n
-Clipboard = 172.16.7 
-Send ^v
+IfWinExist PuTTY Configuration
+	WinActivate
+else
+	Run %A_Desktop%\putty.exe
+	sleep 250
+	sleep 10
+	Send !t
+	sleep 10
+	Send !n
+	Clipboard = 172.16.7 
+	Send ^v
 return
 
 #/::
@@ -153,6 +161,3 @@ Clipboard = ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
 Send {Shift down}{Insert}{Enter}
 Send {Shift up}
 return
-
-::kenv::kenwei.chen
-::kentw::kentrtv@gmail.com
